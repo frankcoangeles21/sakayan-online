@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>SaKay Bulacan</title>
+<link rel="stylesheet" href="style.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+<div id="phone"> <div class="status-bar"><div class="status-time" id="status-time">9:41</div><div class="status-icons"><span>📶</span><span>🔋</span></div></div>
+
+<div class="screen active" id="screen-splash" style="overflow-y:auto;"> <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 28px;min-height:100%;text-align:center;background:linear-gradient(160deg,#071825 0%,#0d2b4e 50%,#1a4a7a 100%);">
+<div class="splash-glow">🚌</div> <div class="splash-title">SaKay Bulacan</div>
+<div class="splash-sub">Online Transit Management System</div> <div class="splash-region">🏛 Province of Bulacan · Region III</div>
+<div class="splash-features"> <div class="sf"><div class="sf-icon">🗺</div><div class="sf-label">Routes</div></div>
+<div class="sf"><div class="sf-icon">🎫</div><div class="sf-label">Bookings</div></div> <div class="sf"><div class="sf-icon">📍</div><div class="sf-label">Trip Plan</div></div>
+<div class="sf"><div class="sf-icon">🏛</div><div class="sf-label">Towns</div></div> </div>
+<button class="btn-get-started" onclick="goToAuth('signup')">Get Started →</button> <button class="btn-sign-in-splash" onclick="goToAuth('login')">I already have an account</button>
+</div></div>
+
+<div class="screen" id="screen-auth"><div class="auth-scroll"> <button class="auth-back" onclick="showScreen('screen-splash')">← Back</button>
+<div class="auth-logo-row"><div class="auth-logo-box">🚌</div><div class="auth-logo-text"><h2>SaKay Bulacan</h2><p>Province of Bulacan · Region III</p></div></div> <div class="auth-card">
+<div class="auth-tab-row"> <button class="auth-tab-btn active" id="at-login" onclick="switchAuthTab('login')">Sign In</button>
+<button class="auth-tab-btn" id="at-signup" onclick="switchAuthTab('signup')">Create Account</button> </div>
+<div class="auth-panel active" id="panel-login"> <div class="afield"><label>Email Address</label><div class="ainput-wrap"><span class="ainput-icon">📧</span><input class="ainput" id="l-email" type="email" placeholder="you@email.com" autocomplete="email"/></div><div class="aerr" id="le-email"></div></div>
+<div class="afield"><label>Password</label><div class="ainput-wrap"><span class="ainput-icon">🔒</span><input class="ainput" id="l-password" type="password" placeholder="Your password" autocomplete="current-password"/></div><div class="aerr" id="le-password"></div></div> <div class="auth-global-err" id="le-global"></div>
+<button class="btn-auth-submit" onclick="doLogin()">Sign In →</button> <div class="demo-hint"><p>Demo Account</p><span>Email: <strong>admin@sakay.ph</strong><br>Password: <strong>bulacan2025</strong></span></div>
+</div> <div class="auth-panel" id="panel-signup">
+<div class="arow2"> <div class="afield"><label>First Name</label><div class="ainput-wrap"><span class="ainput-icon">👤</span><input class="ainput" id="s-fname" type="text" placeholder="Juan"/></div><div class="aerr" id="se-fname"></div></div>
+<div class="afield"><label>Last Name</label><div class="ainput-wrap"><span class="ainput-icon">👤</span><input class="ainput" id="s-lname" type="text" placeholder="dela Cruz"/></div><div class="aerr" id="se-lname"></div></div> </div>
+<div class="afield"><label>Email Address</label><div class="ainput-wrap"><span class="ainput-icon">📧</span><input class="ainput" id="s-email" type="email" placeholder="you@email.com"/></div><div class="aerr" id="se-email"></div></div> <div class="afield"><label>Municipality / City</label><div class="ainput-wrap"><span class="ainput-icon">📍</span><select class="ainput" id="s-muni" style="padding-left:36px"><option value="">— Select your municipality —</option></select></div><div class="aerr" id="se-muni"></div></div>
+<div class="afield"><label>Password</label><div class="ainput-wrap"><span class="ainput-icon">🔒</span><input class="ainput" id="s-password" type="password" placeholder="Min. 6 characters"/></div><div class="aerr" id="se-password"></div></div> <div class="afield"><label>Confirm Password</label><div class="ainput-wrap"><span class="ainput-icon">🔒</span><input class="ainput" id="s-confirm" type="password" placeholder="Repeat password"/></div><div class="aerr" id="se-confirm"></div></div>
+<div class="auth-global-err" id="se-global"></div> <button class="btn-auth-submit" onclick="doSignup()">Create Account →</button>
+</div> </div></div></div>
+
+<div class="screen" id="screen-app"> <div class="app-header">
+<div class="app-header-top"> <div class="app-logo-badge">🚌</div>
+<div class="app-logo-text"><h1>SaKay Bulacan</h1><p>Online Transit System</p></div> <div class="app-header-right">
+<div class="hstat-mini"><span id="hs-routes">0</span><small>Routes</small></div> <div class="hstat-mini"><span id="hs-bookings">0</span><small>Bookings</small></div>
+<div class="user-chip" onclick="openProfile()"><div class="user-av" id="user-av">?</div><span id="user-name-display">User</span></div> </div>
+</div> <div class="nav-tabs">
+<button class="nav-tab active" onclick="switchTab('dashboard')" id="tab-dashboard"><span class="ti">📊</span>Dashboard</button> <button class="nav-tab" onclick="switchTab('routes')" id="tab-routes"><span class="ti">🗺</span>Routes</button>
+<button class="nav-tab" onclick="switchTab('bookings')" id="tab-bookings"><span class="ti">🎫</span>Bookings</button> <button class="nav-tab" onclick="switchTab('planner')" id="tab-planner"><span class="ti">📍</span>Planner</button>
+<button class="nav-tab" onclick="switchTab('municipalities')" id="tab-municipalities"><span class="ti">🏛</span>Towns</button> </div>
+</div>
+
+<div class="tab-views"> <div class="tab-view active" id="view-dashboard">
+<div id="welcome-banner-wrap"></div> <div class="stat-grid">
+<div class="stat-card" style="border-left-color:#0d2b4e"><div class="si">🗺</div><div class="sv" id="d-routes">0</div><div class="sl">Total Routes</div><div class="ss" id="d-routes-sub"></div></div> <div class="stat-card" style="border-left-color:#198754"><div class="si">🎫</div><div class="sv" id="d-bookings">0</div><div class="sl">Bookings</div><div class="ss" id="d-bookings-sub"></div></div>
+<div class="stat-card" style="border-left-color:#f5a623"><div class="si">💰</div><div class="sv" id="d-revenue">₱0</div><div class="sl">Revenue</div><div class="ss">confirmed</div></div> <div class="stat-card" style="border-left-color:#dc3545"><div class="si">⏳</div><div class="sv" id="d-pending">0</div><div class="sl">Pending</div><div class="ss">awaiting</div></div>
+</div> <div class="card"><div class="card-hd"><h3>Fleet by Transport Type</h3></div><div class="card-bd" id="fleet-chart"></div></div>
+<div class="card"><div class="card-hd"><h3>🏛 EA Architecture</h3></div><div class="card-bd"> <div class="ea-layer"><div class="ea-dot" style="background:#2e7fc1"></div><div><div class="ea-lt">Application Architecture</div><div class="ea-ld">Modular tab-based SPA; vanilla JS CRUD; auth session layer</div></div></div>
+<div class="ea-layer"><div class="ea-dot" style="background:#198754"></div><div><div class="ea-lt">Data Architecture</div><div class="ea-ld">Normalized Routes & Bookings; Users registry; referential integrity</div></div></div> <div class="ea-layer"><div class="ea-dot" style="background:#8b5cf6"></div><div><div class="ea-lt">Technology Architecture</div><div class="ea-ld">HTML5 + CSS3 mobile SPA; Google Fonts; zero external dependencies</div></div></div>
+<div class="ea-layer"><div class="ea-dot" style="background:#f5a623"></div><div><div class="ea-lt">IT Governance & Security</div><div class="ea-ld">Auth gate; session validation; input validation; delete confirmation</div></div></div> </div></div>
+<div class="card"><div class="card-hd"><h3>📍 Coverage Areas</h3></div><div class="card-bd"><div class="stops-row" id="coverage-areas"></div></div></div> </div>
+
+<div class="tab-view" id="view-routes"> <div class="toolbar"><div class="sw"><span class="si-ic">🔍</span><input type="text" placeholder="Search routes, codes…" oninput="renderRoutes()" id="route-search"/></div><button class="btn btn-primary" onclick="openRouteModal()">＋ Add</button></div>
+<div id="routes-list"></div> </div>
+
+<div class="tab-view" id="view-bookings"> <div class="pill-row" id="booking-filters">
+<button class="pill active" onclick="setBookingFilter('All',this)">All</button> <button class="pill" onclick="setBookingFilter('Confirmed',this)">Confirmed</button>
+<button class="pill" onclick="setBookingFilter('Pending',this)">Pending</button> <button class="pill" onclick="setBookingFilter('Cancelled',this)">Cancelled</button>
+</div> <div class="toolbar"><div class="sw"><span class="si-ic">🔍</span><input type="text" placeholder="Search passenger, ref…" oninput="renderBookings()" id="booking-search"/></div><button class="btn btn-success" onclick="openBookingModal()">＋ Book</button></div>
+<div id="bookings-list"></div> </div>
+
+<div class="tab-view" id="view-planner"> <div class="planner-hero">
+<h2>🗺 Plan Your Trip</h2><p>Find the best route from your location to your destination</p> <div class="loc-wrap" style="position:relative"><span class="loc-ic">📍</span><input type="text" id="trip-from" placeholder="Current location (e.g. Malolos)" oninput="acSuggest('trip-from','ac-from')" autocomplete="off"/><div class="ac-list" id="ac-from" style="display:none"></div></div>
+<button class="swap-btn" onclick="swapLocations()">⇅</button> <div class="loc-wrap" style="position:relative"><span class="loc-ic">🏁</span><input type="text" id="trip-to" placeholder="Destination (e.g. Trinoma)" oninput="acSuggest('trip-to','ac-to')" autocomplete="off"/><div class="ac-list" id="ac-to" style="display:none"></div></div>
+<div style="height:10px"></div> <button class="btn-search-trip" onclick="searchTrip()">Search Routes →</button>
+</div> <div id="trip-results"></div>
+</div>
+
+<div class="tab-view" id="view-municipalities"> <div class="card" style="margin-bottom:12px">
+<div class="card-hd"><h3>🏛 All Municipalities & Cities</h3><span class="badge bg-blue" id="muni-count-badge">24</span></div> <div class="card-bd">
+<p style="font-size:11px;color:var(--muted);margin-bottom:12px">Bulacan — 1st class province, Region III. 3 cities · 21 municipalities.</p> <div class="toolbar" style="margin-bottom:10px"><div class="sw"><span class="si-ic">🔍</span><input type="text" id="muni-search" placeholder="Search municipality…" oninput="renderMunicipalities()"/></div></div>
+<div class="pill-row" style="margin-bottom:12px"> <button class="pill active" onclick="setMuniFilter('all',this)">All</button>
+<button class="pill" onclick="setMuniFilter('City',this)">Cities</button> <button class="pill" onclick="setMuniFilter('Municipality',this)">Municipalities</button>
+</div> <div class="muni-grid" id="muni-grid"></div>
+</div></div> </div>
+</div></div></div>
+
+<div class="modal-overlay" id="route-modal"><div class="modal"> <div class="modal-handle"></div>
+<div class="modal-hd"><h3 id="route-modal-title">Add Route</h3><button class="modal-close" onclick="closeModal('route-modal')">×</button></div> <div class="modal-bd">
+<div class="frow"> <div class="fg"><label class="fl">Route Code</label><input class="fc" id="f-code" placeholder="BUL-001"/><div class="fe" id="e-code"></div></div>
+<div class="fg"><label class="fl">Transport Type</label><select class="fc" id="f-type"><option>Jeepney</option><option>Bus</option><option>UV Express</option><option>Tricycle</option><option>FX / AUV</option><option>E-Jeep</option></select></div> </div>
+<div class="fg"><label class="fl">Route Name (Origin → Destination)</label><input class="fc" id="f-name" placeholder="Malolos → Trinoma"/><div class="fe" id="e-name"></div></div> <div class="frow">
+<div class="fg"><label class="fl">Fare (₱)</label><input class="fc" id="f-fare" type="number" min="1" placeholder="30"/><div class="fe" id="e-fare"></div></div> <div class="fg"><label class="fl">Duration (mins)</label><input class="fc" id="f-duration" type="number" min="1" placeholder="60"/><div class="fe" id="e-duration"></div></div>
+</div> <div class="fg"><label class="fl">Stops (comma-separated)</label><input class="fc" id="f-stops" placeholder="Malolos, Calumpit, Plaridel…"/></div>
+<div class="fg"><label class="fl">Status</label><select class="fc" id="f-status"><option>Active</option><option>Inactive</option></select></div> <div class="factions"><button class="btn btn-ghost" onclick="closeModal('route-modal')">Cancel</button><button class="btn btn-primary" onclick="saveRoute()">Save Route</button></div>
+</div></div></div>
+
+<div class="modal-overlay" id="booking-modal"><div class="modal"> <div class="modal-handle"></div>
+<div class="modal-hd"><h3 id="booking-modal-title">New Booking</h3><button class="modal-close" onclick="closeModal('booking-modal')">×</button></div> <div class="modal-bd">
+<div class="fg"><label class="fl">Passenger Name</label><input class="fc" id="b-passenger" placeholder="Juan dela Cruz"/><div class="fe" id="be-passenger"></div></div> <div class="frow">
+<div class="fg"><label class="fl">📍 From</label><input class="fc" id="b-from" placeholder="e.g. Malolos" oninput="bookingAcSuggest('b-from','bac-from')" autocomplete="off"/><div class="ac-list" id="bac-from" style="display:none;position:absolute;z-index:400"></div></div> <div class="fg"><label class="fl">🏁 To</label><input class="fc" id="b-to" placeholder="e.g. Trinoma" oninput="bookingAcSuggest('b-to','bac-to')" autocomplete="off"/><div class="ac-list" id="bac-to" style="display:none;position:absolute;z-index:400"></div></div>
+</div> <div class="fg"><label class="fl">Select Route</label><select class="fc" id="b-route" onchange="updateFarePreview()"><option value="">— Choose a route —</option></select><div class="fe" id="be-route"></div></div>
+<div id="fare-preview-box" class="fare-preview" style="display:none"></div> <div class="frow">
+<div class="fg"><label class="fl">Travel Date</label><input class="fc" id="b-date" type="date"/><div class="fe" id="be-date"></div></div> <div class="fg"><label class="fl">Departure Time</label><input class="fc" id="b-time" type="time"/><div class="fe" id="be-time"></div></div>
+</div> <div class="frow">
+<div class="fg"><label class="fl">Seats</label><input class="fc" id="b-seats" type="number" min="1" max="20" value="1" oninput="updateFarePreview()"/><div class="fe" id="be-seats"></div></div> <div class="fg"><label class="fl">Status</label><select class="fc" id="b-status"><option>Pending</option><option>Confirmed</option><option>Cancelled</option></select></div>
+</div> <div class="factions"><button class="btn btn-ghost" onclick="closeModal('booking-modal')">Cancel</button><button class="btn btn-success" onclick="saveBooking()">Book Now</button></div>
+</div></div></div>
+
+<div class="modal-overlay" id="confirm-modal"><div class="modal"> <div class="modal-handle"></div>
+<div class="modal-hd"><h3 id="confirm-title">Confirm</h3><button class="modal-close" onclick="closeModal('confirm-modal')">×</button></div> <div class="modal-bd"><p class="confirm-msg" id="confirm-msg"></p>
+<div class="factions"><button class="btn btn-ghost" onclick="closeModal('confirm-modal')">Cancel</button><button class="btn btn-danger" id="confirm-ok-btn">Delete</button></div> </div></div></div>
+
+<div class="profile-sheet" id="profile-sheet" onclick="closeProfile(event)"><div class="profile-panel"> <div class="profile-hero">
+<div class="profile-av-big" id="profile-av">?</div> <div class="profile-name" id="profile-name">User</div>
+<div class="profile-email" id="profile-email">user@email.com</div> <div class="profile-muni" id="profile-muni">Bulacan</div>
+</div> <div class="profile-stats">
+<div class="ps-item"><div class="ps-val" id="ps-bookings">0</div><div class="ps-lbl">Bookings</div></div> <div class="ps-item"><div class="ps-val" id="ps-routes">0</div><div class="ps-lbl">Routes</div></div>
+<div class="ps-item"><div class="ps-val" id="ps-revenue">₱0</div><div class="ps-lbl">Revenue</div></div> </div>
+<div class="profile-actions"> <button class="btn-logout-big" onclick="doLogout()">🚪 Sign Out</button>
+<button class="btn-close-profile" onclick="closeProfile()">Close</button> </div>
+</div></div>
+
+<div class="toast-container" id="toasts"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
